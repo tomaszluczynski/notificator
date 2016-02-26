@@ -8,11 +8,6 @@ scalaVersion := "2.11.7"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 
-/* This is jrebel configuration - not used right now */
-//javaOptions ++=Seq("-javaagent:/Users/tomek/code/jrebel/jrebel.jar","-Drebel.log=true",
-//  "-Drebel.log.file=/Users/tomek/code/jrebel/jrebel.log")
-
-
 libraryDependencies ++= {
   val akkaStreamVersion = "2.0.3"
   val akkaVersion = "2.4.1"
@@ -25,9 +20,13 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-http-core-experimental"          % akkaStreamVersion,
     "com.typesafe.akka" %% "akka-http-testkit-experimental"       % akkaStreamVersion,
     "org.scalatest"     %% "scalatest"                            % "2.2.5" % "test",
-    "com.typesafe.akka" %% "akka-testkit"                         % akkaVersion % "test"
+    "com.typesafe.akka" %% "akka-testkit"                         % akkaVersion % "test",
+    "me.lessis"         %% "courier"                              % "0.1.3",
+    "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
+    "ch.qos.logback" % "logback-classic" % "1.0.9"
   )
 }
 
+resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
 
 fork in run := true

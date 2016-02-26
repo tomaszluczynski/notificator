@@ -5,11 +5,12 @@ import akka.http.scaladsl.server.Directives._
 import akka.routing.RoundRobinPool
 import akka.stream.ActorMaterializer
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.{ExecutionContext, Await}
 import scala.concurrent.duration.Duration
 
-trait Api extends Protocols {
+trait Api extends Protocols with LazyLogging {
 
   implicit val system = ActorSystem()
   implicit val materializer: ActorMaterializer = ActorMaterializer()
@@ -24,14 +25,9 @@ trait Api extends Protocols {
       complete("hello world")
     } ~ (path("send") & entity(as[Message])) { message =>
       complete {
-        println("telling actor")
+        logger.debug("Telling SenderActor to send message")
         senderActor ! message
-        senderActor ! message
-        senderActor ! message
-        senderActor ! message
-        senderActor ! message
-        println("told actor")
-        "ok"
+        Response("ok")
       }
     }
 }
