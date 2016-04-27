@@ -1,22 +1,25 @@
 package biz.hexworx.notificator
 
 import com.typesafe.scalalogging.LazyLogging
+import javax.mail.internet.InternetAddress
 import courier._, Defaults._
 
 import scala.util.{Failure, Success}
 
 object MailService extends LazyLogging {
   logger.info("Building SMTP client...")
-  val mailer = Mailer("smtp.gmail.com", 587)
+
+  val mailer = Mailer(AppConfig.SmtpConfig.host, AppConfig.SmtpConfig.port)
     .auth(true)
-    .as("tluczynski@gmail.com", "p@$$w3rd")
+    .as(AppConfig.SmtpConfig.login, AppConfig.SmtpConfig.password)
     .startTtls(true)()
 
   def send(message: Message) = {
     logger.info(s"Sending e-mail message to ${message.to}")
+
     mailer(
-      Envelope.from("you" `@` "gmail.com")
-        .to("tluczynki" `@` "gmail.com")
+      Envelope.from(new InternetAddress(message.from))
+        .to(new InternetAddress(message.to))
         .subject(message.subject)
         .content(Text(message.content))
     ) onComplete {

@@ -19,11 +19,7 @@ trait Api extends Protocols with LazyLogging {
   val senderActor = system.actorOf(Props[SenderActor].withRouter(RoundRobinPool(5)), name = "sender")
 
   var routes =
-    path("") {
-      complete("default world")
-    } ~ path("hello") {
-      complete("hello world")
-    } ~ (path("send") & entity(as[Message])) { message =>
+    (path("send") & entity(as[Message])) { message =>
       complete {
         logger.debug("Telling SenderActor to send message")
         senderActor ! message
