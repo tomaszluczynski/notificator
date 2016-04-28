@@ -8,6 +8,12 @@ scalaVersion := "2.11.7"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 
+// asembly
+mainClass in assembly := some("biz.hexworx.notificator.Main")
+
+assemblyJarName := "notificator.jar"
+//
+
 libraryDependencies ++= {
   val akkaStreamVersion = "2.0.3"
   val akkaVersion = "2.4.1"
@@ -27,7 +33,6 @@ libraryDependencies ++= {
     "com.typesafe" % "config" % "1.3.0"
   )
 }
-
 resolvers += "softprops-maven" at "http://dl.bintray.com/content/softprops/maven"
 
 fork in run := true
