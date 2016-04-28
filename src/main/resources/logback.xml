@@ -5,16 +5,16 @@
         </encoder>
     </appender>
 
-   <!-- <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>/tmp/test.log</file>
+   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>notificator.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} TKD [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
-    </appender>-->
+    </appender>
 
     <root level="debug">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
-        <!--<appender-ref ref="FILE" />-->
     </root>
 </configuration>
