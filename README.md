@@ -1,1 +1,1 @@
-# notificator
+email notification service 
